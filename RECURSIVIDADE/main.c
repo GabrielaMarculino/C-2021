@@ -1,5 +1,5 @@
 #include <stdio.h>	//entrada e saída
-#include <unistd.h> //necessária para utilizar a função sleep
+#include <unistd.h>     //necessária para utilizar a função sleep
 #include "gfx.h"	//chama a biblioteca do GFX
 
 /*
@@ -55,10 +55,10 @@ void chamaTriangulo()
 {
 
 	gfx_init(950, 1000, "Triangulo de Sierpinski"); //define o título da aba do GFX e o tamanho da tela (em pixels)
-	sierpinski(500, 500, altura, recursao, 1);		//define a centralização do triângulo e mostra o desenho de Sierpinski
+	sierpinski(500, 500, altura, recursao, 1);      //define a centralização do triângulo e mostra o desenho de Sierpinski
 
 	gfx_paint(); //função pra exibir o desenho desejado
-	sleep(7);	 //a tela fecha automaticamente depois de 7 segundos
+	sleep(7);    //a tela fecha automaticamente depois de 7 segundos
 
 	gfx_quit(); //função que fecha/desliga a tela do GFX
 }
@@ -99,12 +99,12 @@ void tratamentoErroSierpinski()
 			switch (decisao)
 			{
 			case 1:
-				chamaTriangulo(); // se o usuário quiser continuar, o programa chama a função para mostrar a fígura
+				chamaTriangulo(); //se o usuário quiser continuar, o programa chama a função para mostrar a fígura
 				break;
 
-			case 2: //deve-se levar em consideração que, em meu computador
+			case 2:        				//deve-se levar em consideração que, em meu computador
 				//sair                          //que possui um Celeron como processador, não conseguiu suportar
-				break; //recursões acima do nível 12
+				break; 				//recursões acima do nível 12
 
 			default:
 
