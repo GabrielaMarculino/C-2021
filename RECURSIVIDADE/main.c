@@ -3,6 +3,7 @@
 #include "gfx.h"	//chama a biblioteca do GFX
 
 /*
+Feito por: Gabriela Marculino
 Comando para compilar no Terminal:
 gcc -o main main.c gfx.h gfx.c -lSDL -lSDL_gfx -lSDL_ttf -Wall -Wextra -pedantic  
 */
