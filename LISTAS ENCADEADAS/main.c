@@ -47,7 +47,7 @@ void insercaoListaSimples(struct listaSimples** ponteiroDoPonteiroListaSimples, 
 
     struct listaSimples* valorAtual;
 
-    //caso o primeiro no seja o ultimo
+    //se o primeiro nó for o último
     if ((*ponteiroDoPonteiroListaSimples == NULL) || ((*ponteiroDoPonteiroListaSimples)->valorRecebido >= novoNo->valorRecebido))
     {
 
@@ -57,7 +57,7 @@ void insercaoListaSimples(struct listaSimples** ponteiroDoPonteiroListaSimples, 
     else
     {
 
-        //busca onde o no deve ser inserido
+        //busca para inserir o nó
         valorAtual = *ponteiroDoPonteiroListaSimples;
         while ((valorAtual->proximo != NULL) && (valorAtual->proximo->valorRecebido < novoNo->valorRecebido))
         {
@@ -88,14 +88,15 @@ void remocaoListaSimplesEncadeada(struct listaSimples **ponteiroDoPonteiroListaS
 {
 
     struct listaSimples* valorTemporarioListaSimples = *ponteiroDoPonteiroListaSimples, *valorAnterior;
-    //apaga o primeiro no, caso o valor esteja nele
+    
+    //se o valor estiver no primeiro nó, apaga ele
     if (valorTemporarioListaSimples != NULL && valorTemporarioListaSimples->valorRecebido == buscaValor)
     {
         *ponteiroDoPonteiroListaSimples = valorTemporarioListaSimples->proximo;
         free(valorTemporarioListaSimples);
         return;
     }
-    //busca o valor pra apagar o no
+    //busca para apagara o nó
     while (valorTemporarioListaSimples != NULL && valorTemporarioListaSimples->valorRecebido != buscaValor)
     {
         valorAnterior = valorTemporarioListaSimples;
@@ -507,7 +508,7 @@ void desalocaListaDuplamente(struct listaDuplamente** noCabeca, struct listaDupl
 
 /******************************************************************************* FILA (FIFO) *******************************************************************************/
 
-//construindo pila (FIFO)
+//construindo fila (FIFO)
 struct filaFIFO
 {
     int valorRecebido;
