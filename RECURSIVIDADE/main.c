@@ -17,6 +17,7 @@ em outro lugar, recomendo utilizar a função <locale.h> para haver o reconhecim
 int altura = 0;
 int recursao = 0; //variáveis globais (que precisa em mais de uma função)
 
+
 /*
     Objetivo: montar a fígura do triângulo equilátero
     Retorno: Não possui nenhum retorno
@@ -121,6 +122,104 @@ void tratamentoErroSierpinski()
 }
 
 /*
+    Objetivo: montar a fígura do quadrado
+    Retorno: Não possui nenhum retorno
+*/
+void montaQuadrado(unsigned int x, unsigned int y, int altura){
+
+	gfx_set_color(0, 0, 0);
+	gfx_rectangle(x + altura / 2, y - altura / 2, x - altura / 2, y + altura / 2);
+	gfx_set_color(255, 250, 250);
+	gfx_filled_rectangle(x + (altura / 2) - 1, y - (altura / 2) + 1, x - (altura / 2) + 1, y + (altura / 2) - 1);
+}
+
+/*
+    Objetivo: fazer a função recursiva e assim, montar os quadrados sobrepostos
+    Retorno: Não possui nenhum retorno
+*/
+void quadradosSobrepostos(int x, int y, int altura, int recursao, int controleRecursividade){
+
+	montaQuadrado(x, y, altura); 
+
+	if(recursao > controleRecursividade){
+
+		quadradosSobrepostos(x + altura / 2, y - altura / 2, altura / 2, recursao, controleRecursividade + 1);
+	    quadradosSobrepostos(x + altura / 2, y + altura / 2, altura / 2, recursao, controleRecursividade + 1);
+		quadradosSobrepostos(x - altura / 2, y + altura / 2, altura / 2, recursao, controleRecursividade + 1);
+		quadradosSobrepostos(x - altura / 2, y - altura / 2, altura / 2, recursao, controleRecursividade + 1);
+	}
+}
+
+/*
+    Objetivo: chamar a fígura do quadrado sobreposto para exibir na tela
+    Retorno: Não possui nenhum retorno
+*/
+void chamaQuadrado(){
+	
+	gfx_init(950, 1000, "Quadrados Sobrepostos");
+	quadradosSobrepostos(500, 500, altura, recursao, 1);
+	gfx_paint();
+	sleep(7);
+	gfx_quit();
+
+}
+
+/*
+    Objetivo: fazer os tratamentos de possíveis erros que possa acontecer com o usuário,durante o teste deste programa
+    Retorno: Não possui nenhum retorno
+*/
+void tratamentoErroQuadrado(){
+
+
+	int decisao = 0;
+
+	printf("Digite a altura do quadrado (EM PIXELS): \n");
+	scanf("%d", &altura);
+	//o usuário define os valores
+	printf("Digite o nivel de recursão do quadrado: \n");
+	scanf("%d", &recursao);
+
+	if ((altura <= 0) || (recursao <= 0))
+	{
+		//a condição não aceita nenhum valor <= 0
+		printf("Impossível realizar o desenho. Valores inválidos.\n\n");
+	}
+	else if ((recursao > 10) || (altura > 350))
+	{
+
+		do
+		{
+			printf("Certeza que deseja fazer um nível de recursão MAIOR que 10?\n");
+			printf("Ou a altura do quadrado ser maior que 350?\n");
+			printf("Pois, pode demorar para aparecer a fígura, travar seu computador ou até mesmo não aparecer!\n\n");
+			printf("Digite (1) - Para CONTINUAR\n");
+			printf("Digite (2) - Para PARAR e voltar ao MENU PRINCIPAL.\n\n");
+
+			scanf("%d", &decisao);
+
+			switch (decisao)
+			{
+			case 1:
+				chamaQuadrado(); //se o usuário quiser continuar, o programa chama a função para mostrar a fígura
+				break;
+
+			case 2:        				
+				//sair                          
+				break; 				
+
+			default:
+
+				printf("Opção inválida!\n");
+				break;
+			}
+		} while (decisao != 2);
+	}
+	else
+	{
+		chamaQuadrado();
+	}
+}
+/*
     Objetivo: mostrar minha "assinatura"
     Retorno: Não possui nenhum retorno
 */
@@ -130,7 +229,7 @@ void creditos()
 	printf("Feito por: Gabriela Marculino\n");
 	printf("RGM: 41431\n");
 	printf("Curso: Ciência da Computaçao\n");
-	printf("Matéria: Algoritmos e Estrutura de Dados II\n");
+	printf("Matéria: Algoritmos e Estrutura de Dados II\n\n");
 }
 
 /*
@@ -144,11 +243,12 @@ void menu()
 
 	do
 	{
-
+		printf("FEITO POR: Gabriela Marculino RGM: 41431\n\n");
 		printf("Digite o numero da opcao que deseja: \n\n");
 		printf("1 - Triangulo de Sierpinski\n");
-		printf("2 - Créditos\n");
-		printf("0 - Sair\n\n");
+		printf("2 - Quadrados Sobrepostos\n");
+		printf("3 - Créditos\n\n");
+		printf("0 - SAIR\n\n");
 
 		scanf("%d", &escolha);
 
@@ -159,6 +259,10 @@ void menu()
 			break;
 
 		case 2:
+			tratamentoErroQuadrado();
+			break;
+
+		case 3:
 			creditos();
 			break;
 
@@ -167,7 +271,7 @@ void menu()
 			break;
 
 		default:
-			printf("Opção inválida.");
+			printf("Opção inválida.\n\n");
 			break;
 		}
 	} while (escolha != 0);
